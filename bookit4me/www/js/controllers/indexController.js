@@ -54,6 +54,10 @@
 			vm.modal.hide();
 		}
   
+  		$scope.bookRoomFor = function(time){
+  			//var startDate = 
+  			//EventService.createEvent
+  		}
 		function bookRoom(){
 			// Create the login modal that we will use later
 			$ionicModal.fromTemplateUrl('templates/modal-booking.html', {
