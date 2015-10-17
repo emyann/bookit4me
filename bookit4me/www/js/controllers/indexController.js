@@ -88,7 +88,11 @@
   		$scope.bookRoomFor = function(time){
   			var startDate = moment();
   			var endDate = moment();
-  			EventService.createEvent(startDate, endDate.add(time, 'minutes'));
+  			EventService.createEvent(startDate, endDate.add(time, 'minutes'))
+  				.then(function(){
+  					vm.modal.hide();
+  			
+  				});
 
   		}
 		function bookRoom(){

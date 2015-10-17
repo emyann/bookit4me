@@ -66,7 +66,7 @@ angular.module('BookIt4Me', ['ionic', 'AdalAngular','LocalStorageModule', 'angul
   })
     ;
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/index');
+  //$urlRouterProvider.otherwise('/app/index');
 
 
 
