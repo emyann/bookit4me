@@ -1,5 +1,14 @@
 <ion-view view-title="Accueil">
-  <ion-content>
-    {{vm.userDisplayName}}
+  <ion-content overflow-scroll="true" class="">
+   <div class="card">
+            <div class="item item-text-wrap">
+				 <h2>{{vm.userDisplayName}}</h2>
+            </div>
+        </div>
+    
+
+     <p>
+    		 <button class="button button-stable" ng-click="vm.bookRoom()">Book a Room</button>
+     </p>
   </ion-content>
 </ion-view>

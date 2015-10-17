@@ -22,6 +22,7 @@
 
         //#region Private Methods
        	function init() {
+
 			EventService.getEvents().then(function (data) {
 				vm.events = data;
 				updateStatus();
@@ -33,13 +34,19 @@
 		function updateStatus() {
 		
 		}
+
+		$scope.closeModal = function(){
+			vm.modal.hide();
+		}
   
 		function bookRoom(){
+			console.log("ici")
 			// Create the login modal that we will use later
-			$ionicModal.fromTemplateUrl('templates/login.html', {
+			$ionicModal.fromTemplateUrl('templates/modal-booking.html', {
 				scope: $scope
 			}).then(function(modal) {
 				vm.modal = modal;
+				vm.modal.show();
 			});
 		}
         //#endregion
