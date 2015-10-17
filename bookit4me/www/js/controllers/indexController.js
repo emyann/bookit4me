@@ -34,8 +34,39 @@
 		}
   
 		function updateStatus() {
-			angular.forEach(vm.events, function(event) {
+			EventService.hasCurrentEvent().then(function (hasCurrentEvent) {
+				vm.status.available = hasCurrentEvent;
+				var currentDate = new Date();
 				
+				if(hasCurrentEvent) {
+					EventService.getCurrentEvent().then(function (currentEvent) {
+						var diff = new Date(currentEvent.End) - currentDate;
+						console.log(diff);
+						if(diff > (15 * 60 * 1000))	{
+							vm.status.color = "red";
+						} else {
+							vm.status.color = "orange";	
+						}
+					}, function() {
+						console.log("An error occured");
+					});
+				} else {
+					EventService.getNextEvent().then(function (nextEvent) {
+						var diff = new Date(nextEvent.Start) - currentDate;
+						console.log(diff);
+						if(diff > (15 * 60 * 1000))	{
+							vm.status.color = "green";
+						} else {
+							vm.status.color = "orange";	
+						}
+					}, function() {
+						console.log("An error occured");
+					});
+				}
+				
+				
+			}, function() {
+				console.log("An error occured");
 			});
 		}
 		
