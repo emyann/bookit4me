@@ -1,6 +1,6 @@
 angular.module('BookIt4Me.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, UserService) {
+.controller('IndexCtrl', function($scope, $ionicModal, $timeout, UserService, EventService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -22,6 +22,19 @@ angular.module('BookIt4Me.controllers', [])
 
   init();
 
+  function init() {
+    EventService.getEvents().then(function (data) {
+        vm.events = data;
+        updateStatus();
+    }, function () {
+        console.log("An error occured.");
+    });
+  }
+  
+  function updateStatus() {
+    
+  }
+  
   function bookRoom(){
       // Create the login modal that we will use later
       $ionicModal.fromTemplateUrl('templates/login.html', {

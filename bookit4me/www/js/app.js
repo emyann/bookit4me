@@ -50,7 +50,7 @@ angular.module('BookIt4Me', ['ionic', 'BookIt4Me.controllers', 'AdalAngular','Lo
       url: '/app',
       abstract: true,
       templateUrl: 'templates/menu.html',
-      controller: 'AppCtrl',
+      controller: 'MenuController',
          requireADLogin: true
   })
    .state('app.index', {
@@ -58,7 +58,7 @@ angular.module('BookIt4Me', ['ionic', 'BookIt4Me.controllers', 'AdalAngular','Lo
       views: {
         'menuContent': {
           templateUrl: 'templates/accueil.html',
-          controller: 'AppCtrl as vm'
+          controller: 'IndexController as vm'
         }
       },
       requireADLogin: true

@@ -23,8 +23,7 @@
             var date24LaterFormated = formatDateForQuery(date24hLater);
             var currentDateFormated = formatDateForQuery(currentDate);
             
-            var uri = baseUrl + "?$filter=Start+gt+" + date24LaterFormated + "Z+and+Start+lt+" + currentDateFormated + "Z&$orderby=Start"
-​
+            var uri = baseUrl + "?$filter=Start+gt+" + currentDateFormated + "Z+and+Start+lt+" + date24LaterFormated + "Z&$orderby=Start";
             var promise = $http.get(uri).then(function (data, status, headers, config) {
                 return data.data.value;                
             }).catch(function (data, status, headers, config) {
@@ -61,11 +60,11 @@
             var seconds = parseInt((duration / 1000) % 60);
             var minutes = parseInt((duration / (1000 * 60)) % 60);
             var hours = parseInt((duration / (1000 * 60 * 60)) % 24);
-​
+            
             hours = (hours < 10) ? "0" + hours : hours;
             minutes = (minutes < 10) ? "0" + minutes : minutes;
             seconds = (seconds < 10) ? "0" + seconds : seconds;
-​
+            
             return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
         }
     
