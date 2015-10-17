@@ -33,23 +33,24 @@
         };
         
         this.getNextEvent = function () {
-            var uri = baseUrl + "?$filter=Start+ge+2015-10-17T18:54:15Z&$top=1&$orderby=Start";
+            var currentDate = new Date();
+            var formatedDate = formatDateForQuery(currentDate);
+            var uri = baseUrl + "?$filter=Start+ge+" + formatedDate +"Z&$top=1&$orderby=Start";
             
             var promise = $http.get(uri).then(function (data, status, headers, config) {
-               var currentDate = new Date();
-               var nextEventDate = new Date(data.data.value[0].Start)           
-               
-               return {
-                   //NextEventDate : formatDate(nextEventDate),
-                   //NextEventDelay : msToTime(nextEventDate - currentDate)
-               };
-               
+               return data.data.value[0]; 
            }).catch(function (data, status, headers, config) {
                
            });
            
            return promise;
         };
+        
+        this.hasCurrentEvent = function() {
+            var deferred = $q.defer();
+            deferred.resolve(false);
+            return deferred.promise;
+        }
         
         this.createEvent = function(startDate, endDate){
             var uri = baseUrl;

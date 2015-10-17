@@ -1,4 +1,7 @@
-<ion-view view-title="{{ vm.userDisplayName }} ({{vm.currentTime | amDateFormat:'HH:mm:ss'}})">
+<ion-view view-title="{{ vm.userDisplayName }} ({{vm.currentTime | amDateFormat:'HH:mm:ss'}})" ng-style="{ 'background-color': vm.status.color }">
   <ion-content>
+    {{ vm.status.available }} <br />
+    {{ vm.status.color }} <br />
+    {{ vm.status.nextEventTimeOffset }} <br />
   </ion-content>
 </ion-view>

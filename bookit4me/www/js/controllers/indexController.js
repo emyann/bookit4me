@@ -34,8 +34,22 @@
 		}
   
 		function updateStatus() {
-			angular.forEach(vm.events, function(event) {
+			EventService.hasCurrentEvent().then(function (hasCurrentEvent) {
+				vm.status.available = hasCurrentEvent;
 				
+				if(hasCurrentEvent) {
+					vm.status.color = "red";
+				} else {
+					vm.status.color = "green";
+				}
+				
+				EventService.getNextEvent().then(function (nextEvent) {
+					vm.status.nextEventTimeOffset = nextEvent.Start;
+				}, function() {
+					console.log("An error occured");
+				});
+			}, function() {
+				console.log("An error occured");
 			});
 		}
 		
