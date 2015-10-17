@@ -86,8 +86,10 @@
 		}
   
   		$scope.bookRoomFor = function(time){
-  			//var startDate = 
-  			//EventService.createEvent
+  			var startDate = moment();
+  			var endDate = moment();
+  			EventService.createEvent(startDate, endDate.add(time, 'minutes'));
+
   		}
 		function bookRoom(){
 			// Create the login modal that we will use later
@@ -102,6 +104,11 @@
 		function tick() {
 			vm.currentTime = Date.now()
         	$timeout(tick, tickInterval);
+		}
+
+		function addMinutes(date, minutes) {
+
+    		return new Date(date.getTime() + minutes*60000);
 		}
         //#endregion
 
