@@ -72,7 +72,7 @@
 			});
 			
 			EventService.deleteStatus().then(function() {
-				EventService.addStatus(vm.status.color == "green", 1);
+				EventService.addStatus(vm.status.color != "green", 1);
 			}, function () {
 			
 			});
