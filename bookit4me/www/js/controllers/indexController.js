@@ -6,8 +6,9 @@
         //----------------------------------------------------------------------
         var vm = this;
         //#endregion
-
+	
         //#region Private Members
+		var tickInterval = 1000;
         //#endregion
 
         //#region Public Properties
@@ -15,6 +16,12 @@
 		vm.userDisplayName = UserService.getDisplayName();
 		vm.bookRoom = bookRoom;
 		vm.modal;
+		vm.currentTime = "";
+		vm.status = {
+			available: false,
+			color: "#000000",
+			nextEventTimeOffset: ""
+		};
         //#endregion
 
         //#region Public Methods
@@ -22,17 +29,25 @@
 
         //#region Private Methods
        	function init() {
-
+			tick();
+			getEvents();			
+		}
+  
+		function updateStatus() {
+			angular.forEach(vm.events, function(event) {
+				
+			});
+		}
+		
+		function getEvents() {
 			EventService.getEvents().then(function (data) {
 				vm.events = data;
 				updateStatus();
 			}, function () {
 				console.log("An error occured.");
 			});
-		}
-  
-		function updateStatus() {
-		
+			
+			$timeout(getEvents, 60000);
 		}
 
 		$scope.closeModal = function(){
@@ -40,7 +55,6 @@
 		}
   
 		function bookRoom(){
-			console.log("ici")
 			// Create the login modal that we will use later
 			$ionicModal.fromTemplateUrl('templates/modal-booking.html', {
 				scope: $scope
@@ -48,6 +62,11 @@
 				vm.modal = modal;
 				vm.modal.show();
 			});
+		}
+		
+		function tick() {
+			vm.currentTime = Date.now()
+        	$timeout(tick, tickInterval);
 		}
         //#endregion
 
