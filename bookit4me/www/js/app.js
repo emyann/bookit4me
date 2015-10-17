@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('BookIt4Me', ['ionic', 'AdalAngular','LocalStorageModule', 'angularMoment'])
+angular.module('BookIt4Me', ['ionic', 'AdalAngular','LocalStorageModule', 'angularMoment', 'azure-mobile-service.module'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -71,4 +71,9 @@ angular.module('BookIt4Me', ['ionic', 'AdalAngular','LocalStorageModule', 'angul
 
 
 
+});
+
+ angular.module('BookIt4Me').constant('AzureMobileServiceClient', {
+    API_URL : 'https://hackathonbookit4me.azure-mobile.net/',
+    API_KEY : 'UZAKiiqVFMgGTbnvpVHtdGQMUZqoWw51',
 });
