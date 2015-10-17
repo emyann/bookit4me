@@ -35,16 +35,18 @@
   
 		function updateStatus() {
 			EventService.hasCurrentEvent().then(function (hasCurrentEvent) {
-				vm.status.available = hasCurrentEvent;
 				var currentDate = new Date();
+				vm.status.available = true;
 				
 				if(hasCurrentEvent) {
 					EventService.getCurrentEvent().then(function (currentEvent) {
 						var diff = new Date(currentEvent.End) - currentDate;
 						console.log(diff);
 						if(diff > (15 * 60 * 1000))	{
+							vm.status.available = false;
 							vm.status.color = "red";
 						} else {
+							vm.status.available = true;
 							vm.status.color = "orange";	
 						}
 					}, function() {
@@ -67,6 +69,12 @@
 				
 			}, function() {
 				console.log("An error occured");
+			});
+			
+			EventService.deleteStatus().then(function() {
+				EventService.addStatus(vm.status.color == "green", 1);
+			}, function () {
+			
 			});
 		}
 		

@@ -1,6 +1,6 @@
 (function () {
 
-    angular.module('BookIt4Me').service('EventService', function ($http, $q, UserService) {
+    angular.module('BookIt4Me').service('EventService', function ($http, $q, UserService, Azureservice) {
         //#region Initialization
         //----------------------------------------------------------------------
         // Gets a reference to self
@@ -96,6 +96,34 @@
            
             return promise;
         };
+        
+        this.deleteStatus = function(busy, id) {
+            return Azureservice.query('book', null).then(function(items) {
+                // Assigin the results to a $scope variable 
+                var items = items;
+                
+                angular.forEach(items, function(item) {
+                    Azureservice.del('book', {
+                        id: item.id
+                    }).then(function() {
+                        console.log(item.id);
+                    });
+                });
+            }, function(err) {
+                console.error('There was an error quering Azure ' + err);
+            });
+        };
+        
+        this.addStatus = function(busy, id) {
+             if(busy) {
+                Azureservice.insert('book', {
+                    idsalle: id, 
+                    busy: busy
+                }).then(function() {
+                    
+                });   
+            }
+        }
         
         function msToTime(duration) {
             var milliseconds = parseInt((duration % 1000) / 100);
