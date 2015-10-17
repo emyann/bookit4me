@@ -22,7 +22,7 @@ angular.module('BookIt4Me', ['ionic', 'BookIt4Me.controllers', 'AdalAngular','Lo
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider, adalAuthenticationServiceProvider, localStorageServiceProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, adalAuthenticationServiceProvider, localStorageServiceProvider, $ionicMaterialConfigProvider) {
 
       var endpoints = {
         // o365 files api
@@ -42,6 +42,7 @@ angular.module('BookIt4Me', ['ionic', 'BookIt4Me.controllers', 'AdalAngular','Lo
 
     localStorageServiceProvider.setPrefix('BookIt4Me');
   
+    $ionicMaterialConfigProvider.enableForAllPlatforms();
 
 
   $stateProvider
@@ -65,7 +66,7 @@ angular.module('BookIt4Me', ['ionic', 'BookIt4Me.controllers', 'AdalAngular','Lo
   })
     ;
   // if none of the above states are matched, use this as the fallback
-  //$urlRouterProvider.otherwise('/app/index');
+  $urlRouterProvider.otherwise('/app/index');
 
 
 

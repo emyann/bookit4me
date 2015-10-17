@@ -5,8 +5,8 @@
     "ionic": "driftyco/ionic-bower#1.1.0"
   },
   "dependencies": {
-    "adal-angular": "~1.0.6"
     "adal-angular": "~1.0.6",
-    "angular-local-storage": "~0.2.3"
+    "angular-local-storage": "~0.2.3",
+    "ionic-material-design-lite": "~0.5.5"
   }
 }
