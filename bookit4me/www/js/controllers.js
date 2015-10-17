@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, adalAuthenticationService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -10,7 +10,13 @@ angular.module('starter.controllers', [])
   //});
 
   // Form data for the login modal
+
+  var vm = this;
   $scope.loginData = {};
+
+  vm.patate = "test";
+  vm.userName = adalAuthenticationService.userInfo.userName;
+
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {

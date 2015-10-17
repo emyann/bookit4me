@@ -3,5 +3,9 @@
   "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.1.0"
+  },
+  "dependencies": {
+    "adal-angular": "~1.0.6",
+    "angular-local-storage": "~0.2.3"
   }
 }

@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers', 'AdalAngular','LocalStorageModule'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,52 +22,52 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, adalAuthenticationServiceProvider, localStorageServiceProvider) {
+
+      var endpoints = {
+        // o365 files api
+        "https://graph.microsoft.com/": "https://graph.microsoft.com"
+    };
+    adalAuthenticationServiceProvider.init(
+      {
+          //tenant:'emyann.onmicrosoft.com',
+          tenant:"a204560f-5ffc-4cf5-a723-22981d99c4f9",
+          clientId: "255b6b34-2f09-4d3f-8c02-9acd2427ff34", // Required
+          //clientId:'69983f0c-ce7a-43ca-b1df-4ab09cf52e05',
+          endpoints: endpoints,
+          cacheLocation: 'localStorage'
+      },
+      $httpProvider   // pass http provider to inject request interceptor to attach tokens
+      );
+
+    localStorageServiceProvider.setPrefix('BookIt4Me');
+  
+
+
   $stateProvider
 
     .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+      url: '/app',
+      abstract: true,
+      templateUrl: 'templates/menu.html',
+      controller: 'AppCtrl',
+         requireADLogin: true
   })
-
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
-      }
-    }
-  })
-
-  .state('app.browse', {
-      url: '/browse',
+   .state('app.index', {
+      url: '/index',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/accueil.html',
+          controller: 'AppCtrl as vm'
         }
-      }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
+      },
+      requireADLogin: true
+  })
+    ;
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  //$urlRouterProvider.otherwise('/app/index');
+
+
+
+
 });
