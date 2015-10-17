@@ -1,7 +1,7 @@
 <ion-view view-title="{{ vm.userDisplayName }} ({{vm.currentTime | amDateFormat:'HH:mm:ss'}})" ng-style="{ 'background-color': vm.status.color }">
-  <ion-content>
-    {{ vm.status.available }} <br />
-    {{ vm.status.color }} <br />
-    {{ vm.status.nextEventTimeOffset }} <br />
+  <ion-content overflow-scroll="true">
+    <p>
+      <button class="button button-stable" ng-click="vm.bookRoom()">Book a Room</button>
+    </p>
   </ion-content>
 </ion-view>

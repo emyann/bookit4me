@@ -47,9 +47,29 @@
         };
         
         this.hasCurrentEvent = function() {
-            var deferred = $q.defer();
-            deferred.resolve(false);
-            return deferred.promise;
+            var currentDate = new Date();
+            var formatedDate = formatDateForQuery(currentDate);
+            var uri = baseUrl + "?$filter=Start+le+" + formatedDate +"Z+and+End+ge+" + formatedDate + "Z&$top=1&$orderby=Start";
+           
+            var promise = $http.get(uri).then(function (data, status, headers, config) {
+                return data.data.value.length > 0;
+            }).catch(function (data, status, headers, config) {
+            });
+           
+            return promise;
+        }
+        
+        this.getCurrentEvent = function() {
+            var currentDate = new Date();
+            var formatedDate = formatDateForQuery(currentDate);
+            var uri = baseUrl + "?$filter=Start+le+" + formatedDate +"Z+and+End+ge+" + formatedDate + "Z&$top=1&$orderby=Start";
+           
+            var promise = $http.get(uri).then(function (data, status, headers, config) {
+                return data.data.value[0];
+            }).catch(function (data, status, headers, config) {
+            });
+           
+            return promise;
         }
         
         this.createEvent = function(startDate, endDate){

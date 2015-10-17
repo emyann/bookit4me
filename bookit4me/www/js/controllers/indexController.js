@@ -36,18 +36,35 @@
 		function updateStatus() {
 			EventService.hasCurrentEvent().then(function (hasCurrentEvent) {
 				vm.status.available = hasCurrentEvent;
+				var currentDate = new Date();
 				
 				if(hasCurrentEvent) {
-					vm.status.color = "red";
+					EventService.getCurrentEvent().then(function (currentEvent) {
+						var diff = new Date(currentEvent.End) - currentDate;
+						console.log(diff);
+						if(diff > (15 * 60 * 1000))	{
+							vm.status.color = "red";
+						} else {
+							vm.status.color = "orange";	
+						}
+					}, function() {
+						console.log("An error occured");
+					});
 				} else {
-					vm.status.color = "green";
+					EventService.getNextEvent().then(function (nextEvent) {
+						var diff = new Date(nextEvent.Start) - currentDate;
+						console.log(diff);
+						if(diff > (15 * 60 * 1000))	{
+							vm.status.color = "green";
+						} else {
+							vm.status.color = "orange";	
+						}
+					}, function() {
+						console.log("An error occured");
+					});
 				}
 				
-				EventService.getNextEvent().then(function (nextEvent) {
-					vm.status.nextEventTimeOffset = nextEvent.Start;
-				}, function() {
-					console.log("An error occured");
-				});
+				
 			}, function() {
 				console.log("An error occured");
 			});
@@ -63,13 +80,18 @@
 			
 			$timeout(getEvents, 60000);
 		}
+
+		$scope.closeModal = function(){
+			vm.modal.hide();
+		}
   
 		function bookRoom(){
 			// Create the login modal that we will use later
-			$ionicModal.fromTemplateUrl('templates/login.html', {
+			$ionicModal.fromTemplateUrl('templates/modal-booking.html', {
 				scope: $scope
 			}).then(function(modal) {
 				vm.modal = modal;
+				vm.modal.show();
 			});
 		}
 		
