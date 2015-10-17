@@ -1,6 +1,6 @@
 (function () {
 
-    angular.module('BookIt4Me').service('EventService', ['$http', '$q', function ($http, $q) {
+    angular.module('BookIt4Me').service('EventService', function ($http, $q, UserService) {
         //#region Initialization
         //----------------------------------------------------------------------
         // Gets a reference to self
@@ -51,8 +51,29 @@
            return promise;
         };
         
-        this.createEvent = function(date, title) {
+        this.createEvent = function(startDate, endDate){
             var uri = baseUrl;
+           
+            var Body = 
+            {
+                "Subject" : "Auto Booking",
+                "Body": {
+                    "ContentType": "HTML",
+                    "Content": "Auto Booking by " + UserService.getDisplayName()
+                },
+                "Start": startDate,
+                "StartTimeZone": "Eastern Standard Time",
+                "End": endDate,
+                "EndTimeZone": "Eastern Standard Time",
+                "Attendees": []
+            }
+           
+            var promise = $http.post(uri, Body).then(function (data, status, headers, config) {   
+               return data;             
+            }).catch(function (data, status, headers, config) {
+            });        
+           
+            return promise;
         };
         
         function msToTime(duration) {
@@ -80,6 +101,6 @@
             return date.toISOString().split('.')[0]
         }
         //#endregion
-    }]);
+    });
 
 }());

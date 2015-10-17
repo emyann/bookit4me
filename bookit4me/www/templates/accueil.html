@@ -1,5 +1,4 @@
-<ion-view view-title="Accueil">
+<ion-view view-title="{{ vm.userDisplayName }} ({{vm.currentTime | amDateFormat:'HH:mm:ss'}})">
   <ion-content>
-    {{vm.userDisplayName}}
   </ion-content>
 </ion-view>
