@@ -1,7 +1,18 @@
 <ion-view view-title="{{ vm.userDisplayName }} ({{vm.currentTime | amDateFormat:'HH:mm:ss'}})" ng-style="{ 'background-color': vm.status.color }">
-  <ion-content  overflow-scroll="true">
+  <ion-content  class="has-header has-subheader padding">
+  	   <div class="card"  ng-show="!vm.status.available" >
+            <div class="item item-divider">
+                <h2>Meeting terminé dans</h2>
+            </div>
+            <div class="item item-text-wrap">
+             	{{vm.meetingRemainingTime}}
+            </div>
+        </div>
+
+
 	 <p>
-    		 <button class="button button-stable" ng-click="vm.bookRoom()" ng-disabled="!vm.status.available">Appuyez pour réserver</button>
+    	
+                   <button class="button button-dark col" ng-click="vm.bookRoom()" ng-disabled="!vm.status.available">Appuyez pour réserver !</button>	
      </p>
   </ion-content>
 </ion-view>

@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('BookIt4Me', ['ionic', 'AdalAngular','LocalStorageModule', 'angularMoment', 'azure-mobile-service.module'])
+angular.module('BookIt4Me', ['ionic', 'AdalAngular','LocalStorageModule', 'angularMoment', 'azure-mobile-service.module','timer' ])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -48,25 +48,26 @@ angular.module('BookIt4Me', ['ionic', 'AdalAngular','LocalStorageModule', 'angul
   $stateProvider
 
     .state('app', {
-      url: '/app',
+      url: '',
       abstract: true,
       templateUrl: 'templates/menu.html',
-      controller: 'MenuController',
-         requireADLogin: true
+      controller: 'MenuController'
   })
    .state('app.index', {
-      url: '/index',
+      url: '/',
       views: {
         'menuContent': {
           templateUrl: 'templates/accueil.html',
-          controller: 'IndexController as vm'
+          controller: 'IndexController as vm',
+          
         }
       },
-      requireADLogin: true
+       requireADLogin: true
+
   })
     ;
   // if none of the above states are matched, use this as the fallback
-  //$urlRouterProvider.otherwise('/app/index');
+  $urlRouterProvider.otherwise('/');
 
 
 

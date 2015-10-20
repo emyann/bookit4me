@@ -22,6 +22,8 @@
 			color: "#000000",
 			nextEventTimeOffset: ""
 		};
+
+		vm.meetingRemainingTime;
         //#endregion
 
         //#region Public Methods
@@ -30,7 +32,21 @@
         //#region Private Methods
        	function init() {
 			tick();
-			getEvents();			
+			getEvents();		
+
+			$scope.$watch('vm.status',function(oldStatus,newStatus){
+				if(!newStatus.available){
+					EventService.getCurrentEvent()
+					.then(function(event){
+						if(event){
+							
+						var endDate = event.End;
+
+						vm.meetingRemainingTime =  endDate;
+						}
+					});
+				}
+			})
 		}
   
 		function updateStatus() {
@@ -94,13 +110,18 @@
 		}
   
   		$scope.bookRoomFor = function(time){
-  			var startDate = moment();
-  			var endDate = moment();
-  			EventService.createEvent(startDate, endDate.add(time, 'minutes'))
-  				.then(function(){
-  					vm.modal.hide();
-  			
+  			EventService.getCurrentEvent()
+  				.then(function(event){
+  						var startDate  = event ? moment(event.End) : moment();
+  						var endDate = event ? moment(event.End) : moment();
+
+  						EventService.createEvent(startDate, endDate.add(time, 'minutes'))
+			  				.then(function(){
+			  					vm.modal.hide();
+			  					getEvents();
+			  				});
   				});
+  			
 
   		}
 		function bookRoom(){
